@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gradhack/pages/profile_page.dart';
+import 'package:gradhack/pages/search_store_page.dart';
+import 'package:gradhack/pages/transaction_detail_page.dart';
 import 'package:gradhack/pages/transaction_list_page.dart';
 
 void main() {
@@ -27,7 +30,75 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: TransactionListPage(title: 'Transactions'),
+      home: DummyMainPage(title: 'Transactions'),
+    );
+  }
+}
+
+class DummyMainPage extends StatefulWidget {
+  DummyMainPage({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _DummyMainPageState createState() => _DummyMainPageState();
+}
+
+class _DummyMainPageState extends State<DummyMainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TransactionListPage(title: "Transactions")),
+                );
+              },
+              child: Text("Transaction list"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TransactionDetailPage(title: "Transaction detail")),
+                );
+              },
+              child: Text("Transaction detail"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfilePage(title: "Profile")),
+                );
+              },
+              child: Text("Profile"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SearchStorePage(title: "Search")),
+                );
+              },
+              child: Text("Search"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
