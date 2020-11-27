@@ -42,69 +42,65 @@ class _TransactionListPageState extends State<TransactionListPage> {
     ],
   );
 
-  Container displayTransaction(Transaction transaction,
+  Card displayTransaction(Transaction transaction,
           {Color oddColour = Colors.white}) =>
-      Container(
-          decoration: BoxDecoration(color: oddColour),
-          padding:
-              EdgeInsets.only(top: 20.0, bottom: 20.0, left: 5.0, right: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  Text(transaction.store.name,
-                      style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.bold))
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    children: [
-                      Text(transaction.formattedValue(),
-                          style: TextStyle(fontSize: 16.0))
-                    ],
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Column(
-                        children: [
-                          Icon(
-                            IconData(59108, fontFamily: 'MaterialIcons'),
-                            color: transaction.store.sustainabilityScore >= 2
-                                ? Colors.green
-                                : Colors.white,
-                          ),
-                        ],
-                      ))
-                ],
-              )
-            ],
-          ));
+      Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 5,
+        child: Container(
+            padding: EdgeInsets.only(
+                top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text(transaction.store.name,
+                        style: TextStyle(
+                            fontSize: 16.0, fontWeight: FontWeight.bold))
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Column(
+                      children: [
+                        Text(transaction.formattedValue(),
+                            style: TextStyle(fontSize: 16.0))
+                      ],
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Column(
+                          children: [
+                            Icon(
+                              IconData(59108, fontFamily: 'MaterialIcons'),
+                              color: transaction.store.sustainabilityScore >= 2
+                                  ? Colors.green
+                                  : Colors.white,
+                            ),
+                          ],
+                        ))
+                  ],
+                )
+              ],
+            )),
+      );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(15.0),
-              child: Column(
-                children: _user.transactions.map((element) {
-                  return displayTransaction(element);
-                }).toList(),
-              ),
-            )
-          ],
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-      ),
-    );
+        body: Container(
+            margin: EdgeInsets.all(5.0),
+            child: ListView.builder(
+                itemCount: _user.transactions.length,
+                itemBuilder: (context, int i) {
+                  return displayTransaction(_user.transactions[i]);
+                })));
   }
 }
