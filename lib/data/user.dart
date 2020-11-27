@@ -18,4 +18,8 @@ class User {
     // TODO
     return 0;
   }
+
+  String balanceString() {
+    return "£ ${this.balance.toStringAsFixed(2)}";
+  }
 }
