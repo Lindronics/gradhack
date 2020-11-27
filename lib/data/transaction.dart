@@ -13,4 +13,8 @@ class Transaction {
     this.reference = reference;
     this.dateTime = dateTime;
   }
+
+  String formattedValue() {
+    return "£ ${this.value.toStringAsFixed(2)}";
+  }
 }

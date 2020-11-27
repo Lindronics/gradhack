@@ -25,18 +25,18 @@ class _TransactionListPageState extends State<TransactionListPage> {
           "Test reference",
           DateTime.now()),
       Transaction(
-          20.0,
+          102.0,
+          Store(2, "Amazon", 1, HashMap<String, int>(), "Shopping"),
+          "Test reference",
+          DateTime.now()),
+      Transaction(
+          3.6,
           Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
           "Test reference",
           DateTime.now()),
       Transaction(
           20.0,
-          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
-          "Test reference",
-          DateTime.now()),
-      Transaction(
-          20.0,
-          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
+          Store(3, "Unknown", 0, HashMap<String, int>(), "Unknown"),
           "Test reference",
           DateTime.now()),
     ],
@@ -45,34 +45,44 @@ class _TransactionListPageState extends State<TransactionListPage> {
   Container displayTransaction(Transaction transaction,
           {Color oddColour = Colors.white}) =>
       Container(
-        decoration: BoxDecoration(color: oddColour),
-        padding:
-            EdgeInsets.only(top: 20.0, bottom: 20.0, left: 5.0, right: 5.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(transaction.store.name, style: TextStyle(fontSize: 16.0)),
-                Text(transaction.value.toString(),
-                    style: TextStyle(fontSize: 16.0))
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(transaction.dateTime.toString(),
-                    style: TextStyle(color: Colors.grey, fontSize: 14.0)),
-                Text(transaction.store.category,
-                    style: TextStyle(color: Colors.grey, fontSize: 14.0))
-              ],
-            ),
-          ],
-        ),
-      );
+          decoration: BoxDecoration(color: oddColour),
+          padding:
+              EdgeInsets.only(top: 20.0, bottom: 20.0, left: 5.0, right: 5.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Text(transaction.store.name,
+                      style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold))
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    children: [
+                      Text(transaction.formattedValue(),
+                          style: TextStyle(fontSize: 16.0))
+                    ],
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Column(
+                        children: [
+                          Icon(
+                            IconData(59108, fontFamily: 'MaterialIcons'),
+                            color: transaction.store.sustainabilityScore >= 2
+                                ? Colors.green
+                                : Colors.white,
+                          ),
+                        ],
+                      ))
+                ],
+              )
+            ],
+          ));
 
   @override
   Widget build(BuildContext context) {
