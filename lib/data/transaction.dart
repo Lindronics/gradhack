@@ -2,14 +2,12 @@ import 'package:gradhack/data/store.dart';
 import 'package:gradhack/data/user.dart';
 
 class Transaction {
-  User user;
   double value;
   Store store;
   String reference;
   DateTime dateTime;
 
-  Transaction(user, value, store, reference, dateTime) {
-    this.user = user;
+  Transaction(value, store, reference, dateTime) {
     this.value = value;
     this.store = store;
     this.reference = reference;
