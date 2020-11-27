@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:gradhack/data/store.dart';
 import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
+import 'package:gradhack/pages/profile_page.dart';
+import 'package:gradhack/pages/transaction_detail_page.dart';
 
 class TransactionListPage extends StatefulWidget {
   TransactionListPage({Key key, this.title}) : super(key: key);
@@ -42,51 +44,62 @@ class _TransactionListPageState extends State<TransactionListPage> {
     ],
   );
 
-  Card displayTransaction(Transaction transaction,
+  Widget displayTransaction(Transaction transaction,
           {Color oddColour = Colors.white}) =>
-      Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    TransactionDetailPage(title: transaction.store.name)),
+          );
+        },
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          elevation: 5,
+          child: Container(
+              padding: EdgeInsets.only(
+                  top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Text(transaction.store.name,
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold))
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Column(
+                        children: [
+                          Text(transaction.formattedValue(),
+                              style: TextStyle(fontSize: 16.0))
+                        ],
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(left: 15.0),
+                          child: Column(
+                            children: [
+                              Icon(
+                                IconData(59108, fontFamily: 'MaterialIcons'),
+                                color:
+                                    transaction.store.sustainabilityScore >= 2
+                                        ? Colors.green
+                                        : Colors.white,
+                              ),
+                            ],
+                          ))
+                    ],
+                  )
+                ],
+              )),
         ),
-        elevation: 5,
-        child: Container(
-            padding: EdgeInsets.only(
-                top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Text(transaction.store.name,
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.bold))
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Column(
-                      children: [
-                        Text(transaction.formattedValue(),
-                            style: TextStyle(fontSize: 16.0))
-                      ],
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 15.0),
-                        child: Column(
-                          children: [
-                            Icon(
-                              IconData(59108, fontFamily: 'MaterialIcons'),
-                              color: transaction.store.sustainabilityScore >= 2
-                                  ? Colors.green
-                                  : Colors.white,
-                            ),
-                          ],
-                        ))
-                  ],
-                )
-              ],
-            )),
       );
 
   @override
@@ -109,7 +122,13 @@ class _TransactionListPageState extends State<TransactionListPage> {
                 Icons.account_circle,
                 color: Colors.blue,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfilePage(title: "Profile")),
+                );
+              },
             )
           ],
         ),
