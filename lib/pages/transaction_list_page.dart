@@ -93,14 +93,72 @@ class _TransactionListPageState extends State<TransactionListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          iconTheme: IconThemeData(
+            color: Colors.blue, //change your color here
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          title: Text(
+            widget.title,
+            style: TextStyle(color: Colors.black),
+          ),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.account_circle,
+                color: Colors.blue,
+              ),
+              onPressed: () {},
+            )
+          ],
         ),
         body: Container(
             margin: EdgeInsets.all(5.0),
-            child: ListView.builder(
-                itemCount: _user.transactions.length,
-                itemBuilder: (context, int i) {
-                  return displayTransaction(_user.transactions[i]);
-                })));
+            child: Column(
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  elevation: 5,
+                  color: Colors.blue,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              "Balance",
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              _user.balanceString(),
+                              style:
+                                  TextStyle(fontSize: 30, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _user.transactions.length,
+                      itemBuilder: (context, int i) {
+                        return displayTransaction(_user.transactions[i]);
+                      }),
+                ),
+              ],
+            )));
   }
 }
