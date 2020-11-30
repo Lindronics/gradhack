@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradhack/pages/profile_page.dart';
+import 'package:gradhack/pages/search_store_page%20copy%202.dart';
 import 'package:gradhack/pages/search_store_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 import 'package:gradhack/pages/transaction_list_page.dart';
@@ -91,7 +92,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SearchStorePage(title: "Search")),
+                      builder: (context) => SearchPage1(title: "Search")),
                 );
               },
               child: Text("Search"),
@@ -102,3 +103,5 @@ class _DummyMainPageState extends State<DummyMainPage> {
     );
   }
 }
+
+// Starting the Search Page HERE
