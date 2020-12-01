@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:gradhack/data/store.dart';
 import 'package:gradhack/components/map.dart';
 
-class SearchPage4 extends StatefulWidget {
-  SearchPage4({Key key, this.title}) : super(key: key);
+class SearchPage extends StatefulWidget {
+  SearchPage({Key key, this.title}) : super(key: key);
   final String title;
+  static const String routeName = "/search_store";
 
   @override
-  _SearchPage4State createState() => _SearchPage4State();
+  _SearchPageState createState() => _SearchPageState();
 }
 
-class _SearchPage4State extends State<SearchPage4> {
+class _SearchPageState extends State<SearchPage> {
   static const String _title = 'Search Store'; // Name of page.
 
   @override

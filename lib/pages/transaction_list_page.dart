@@ -8,8 +8,9 @@ import 'package:gradhack/pages/profile_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 
 class TransactionListPage extends StatefulWidget {
-  TransactionListPage({Key key, this.title}) : super(key: key);
-  final String title;
+  TransactionListPage({Key key}) : super(key: key);
+  final String title = "Transactions";
+  static const String routeName = "/transaction_list";
 
   @override
   _TransactionListPageState createState() => _TransactionListPageState();

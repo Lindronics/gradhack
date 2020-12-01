@@ -31,6 +31,12 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: DummyMainPage(title: 'Transactions'),
+      routes: {
+        ProfilePage.routeName: (context) => ProfilePage(),
+        SearchPage.routeName: (context) => SearchPage(),
+        TransactionDetailPage.routeName: (context) => TransactionDetailPage(),
+        TransactionListPage.routeName: (context) => TransactionListPage(),
+      },
     );
   }
 }
@@ -56,12 +62,8 @@ class _DummyMainPageState extends State<DummyMainPage> {
           children: <Widget>[
             RaisedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          TransactionListPage(title: "Transactions")),
-                );
+                Navigator.pushNamed(context, TransactionListPage.routeName,
+                    arguments: "Transactions");
               },
               child: Text("Transaction list"),
             ),
@@ -91,7 +93,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SearchPage4(title: "Search")),
+                      builder: (context) => SearchPage(title: "Search")),
                 );
               },
               child: Text("Search"),
