@@ -4,7 +4,6 @@ class User {
   String name;
   int id;
   double balance;
-  int _sustainabilityScore;
   List<Transaction> transactions;
 
   User(id, name, balance, transactions) {

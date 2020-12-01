@@ -82,7 +82,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      // TODO amount of green transactions only
                                       _user.transactions.length.toString(),
                                       style: TextStyle(
                                         fontSize: 18.0,
