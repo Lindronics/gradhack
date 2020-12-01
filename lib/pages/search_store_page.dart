@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gradhack/data/store.dart';
 import 'package:gradhack/components/map.dart';
@@ -30,11 +31,18 @@ class _SearchPageState extends State<SearchPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-      ),
+        iconTheme: IconThemeData(
+            color: Colors.blue, //change your color here
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          title: Text(
+            widget.title,
+            style: TextStyle(color: Colors.black),
+          )),
       body: ListView.builder(
           padding: const EdgeInsets.all(8.0),
-          itemExtent: 106.0,
+          itemExtent: 129.0,
           itemCount: _stores.length,
           itemBuilder: (context, int i) {
             return CustomListItem(
@@ -64,17 +72,27 @@ class CustomListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          vertical: 10.0), // Space between the tiles.
+          vertical: 1.0), // Space between the tiles.
+      child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          elevation: 5,
+          child: Container(
+              padding: EdgeInsets.only(
+                  top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
+                  
+      
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
             flex:
                 1, // Width of the boxes before text -> Could be replaced with Icons of stores.
-            child: thumbnail,
+            child: Icon(store.getIcons(store.category), color: Colors.black, size: 50.0,)
           ),
           Expanded(
-            flex: 3, // Width of text box beside the icon
+            flex: 2, // Width of text box beside the icon
             child: _StoreDescription(
               store: store,
               user: user.name,
@@ -83,7 +101,7 @@ class CustomListItem extends StatelessWidget {
           store.getLeaves(),
         ],
       ),
-    );
+    )));
   }
 }
 
@@ -110,7 +128,7 @@ class _StoreDescription extends StatelessWidget {
           ),
           const Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: 2.0)), //spacing between 1st & 2nd lines of text
+                  vertical: 1.0)), //spacing between 1st & 2nd lines of text
           Text(
             //2nd line of text HERE
             user.toString(), //2nd line of text variable in CustomListItem
@@ -118,7 +136,8 @@ class _StoreDescription extends StatelessWidget {
           ),
           const Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: 1.0)), //spacing between 2nd & 3rd lines of text.
+                  vertical: 0.0)), //spacing between 2nd & 3rd lines of text.
+
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -130,6 +149,8 @@ class _StoreDescription extends StatelessWidget {
                     }
                   },
                   child: Text("View on Map"),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),),
                 ),
               ])
         ],
