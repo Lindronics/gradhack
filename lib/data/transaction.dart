@@ -1,5 +1,4 @@
 import 'package:gradhack/data/store.dart';
-import 'package:gradhack/data/user.dart';
 
 class Transaction {
   double value;
@@ -14,7 +13,7 @@ class Transaction {
     this.dateTime = dateTime;
   }
 
-  String formattedValue() {
-    return "£ ${this.value.toStringAsFixed(2)}";
+  static String formattedValue(double value) {
+    return "£ ${value.toStringAsFixed(2)}";
   }
 }

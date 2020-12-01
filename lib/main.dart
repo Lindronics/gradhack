@@ -1,4 +1,9 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:gradhack/data/store.dart';
+import 'package:gradhack/data/transaction.dart';
+import 'package:gradhack/data/user.dart';
 import 'package:gradhack/pages/profile_page.dart';
 import 'package:gradhack/pages/search_store_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
@@ -50,6 +55,34 @@ class DummyMainPage extends StatefulWidget {
 }
 
 class _DummyMainPageState extends State<DummyMainPage> {
+  User _user = User(
+    1,
+    "Person One",
+    1234.56,
+    [
+      Transaction(
+          20.0,
+          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
+          "Test reference",
+          DateTime.now()),
+      Transaction(
+          102.0,
+          Store(2, "Amazon", 1, HashMap<String, int>(), "Shopping"),
+          "Test reference",
+          DateTime.now()),
+      Transaction(
+          3.6,
+          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
+          "Test reference",
+          DateTime.now()),
+      Transaction(
+          20.0,
+          Store(3, "Unknown", 0, HashMap<String, int>(), "Unknown"),
+          "Test reference",
+          DateTime.now()),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +96,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
             RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, TransactionListPage.routeName,
-                    arguments: "Transactions");
+                    arguments: _user);
               },
               child: Text("Transaction list"),
             ),
@@ -80,11 +113,8 @@ class _DummyMainPageState extends State<DummyMainPage> {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfilePage(title: "Profile")),
-                );
+                Navigator.pushNamed(context, ProfilePage.routeName,
+                    arguments: _user);
               },
               child: Text("Profile"),
             ),

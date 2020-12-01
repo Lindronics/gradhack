@@ -14,12 +14,18 @@ class User {
     this.transactions = transactions;
   }
 
-  int sustainabilityScore() {
-    // TODO
-    return 0;
-  }
-
   String balanceString() {
     return "£ ${this.balance.toStringAsFixed(2)}";
+  }
+
+  int greenPoints() {
+    return this
+        .transactions
+        .map((e) => e.store.sustainabilityScore)
+        .reduce((v, e) => v + e);
+  }
+
+  double totalExpenditures() {
+    return this.transactions.map((e) => e.value).reduce((v, e) => v + e);
   }
 }
