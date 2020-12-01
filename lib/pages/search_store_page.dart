@@ -1,63 +1,141 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
-import 'package:gradhack/pages/Store1Map.dart';
-import 'package:gradhack/pages/Store2Map.dart';
-import 'package:gradhack/pages/Store3Map.dart';
+import 'package:gradhack/data/store.dart';
+import 'package:gradhack/components/map.dart';
+import 'package:gradhack/data/user.dart';
 
-class SearchStorePage extends StatefulWidget {
-  SearchStorePage({Key key, this.title}) : super(key: key);
-  final String title;
+class SearchArguments {
+  User user;
+  List<Store> stores;
 
-  @override
-  _SearchStorePageState createState() => _SearchStorePageState();
+  SearchArguments(this.user, this.stores);
 }
 
-class _SearchStorePageState extends State<SearchStorePage> {
-  
+class SearchPage extends StatefulWidget {
+  SearchPage({Key key}) : super(key: key);
+  final String title = "Store search";
+  static const String routeName = "/search_store";
+
+  @override
+  _SearchPageState createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
+    final SearchArguments args = ModalRoute.of(context).settings.arguments;
+    List<Store> _stores = args.stores;
+    User _user = args.user;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: ListView.builder(
+          padding: const EdgeInsets.all(8.0),
+          itemExtent: 106.0,
+          itemCount: _stores.length,
+          itemBuilder: (context, int i) {
+            return CustomListItem(
+              store: _stores[i],
+              user: _user,
+              thumbnail: Container(
+                decoration: const BoxDecoration(color: Colors.blue),
+              ),
+            );
+          }),
+    );
+  }
+}
 
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          Store1Map(title: "Store 1 Map")),
-                );
-              },
-              child: Text("Store 1"),
+class CustomListItem extends StatelessWidget {
+  CustomListItem({
+    this.thumbnail,
+    this.store,
+    this.user,
+  });
+
+  final Widget thumbnail;
+  final Store store;
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          vertical: 10.0), // Space between the tiles.
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            flex:
+                1, // Width of the boxes before text -> Could be replaced with Icons of stores.
+            child: thumbnail,
+          ),
+          Expanded(
+            flex: 3, // Width of text box beside the icon
+            child: _StoreDescription(
+              title: store.name,
+              user: user.name,
             ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          Store2Map(title: "Store 2 Map")),
-                );
-              },
-              child: Text("Store 2"),
+          ),
+          store.getLeaves(),
+        ],
+      ),
+    );
+  }
+}
+
+class _StoreDescription extends StatelessWidget {
+  const _StoreDescription({Key key, this.title, this.user}) : super(key: key);
+
+  final String title;
+  final String user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:
+          const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0), // padding of the tiles
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title, //refers to 1st line of Text in CustomListItem
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14.0, //Font size of 1st line of text.
             ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Store3Map(title: "Store 3 Map")),
-                );
-              },
-              child: Text("Store 3"),
-            ),
-          ],
-        ),
+          ),
+          const Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: 2.0)), //spacing between 1st & 2nd lines of text
+          Text(
+            //2nd line of text HERE
+            user.toString(), //2nd line of text variable in CustomListItem
+            style: const TextStyle(fontSize: 10.0),
+          ),
+          const Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: 1.0)), //spacing between 2nd & 3rd lines of text.
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MapComponent(
+                              title:
+                                  title)), //Add location details here to be passed into the Map1 Page
+                    );
+                  },
+                  child: Text("View on Map"),
+                ),
+              ])
+        ],
       ),
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gradhack/data/transaction.dart';
+import 'package:gradhack/data/user.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key key, this.title}) : super(key: key);
-  final String title;
+  ProfilePage({Key key}) : super(key: key);
+  static const String routeName = "/profile";
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -11,9 +13,11 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    User _user = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Profile"),
         backgroundColor: Colors.redAccent,
         elevation: 0,
       ),
@@ -43,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 10.0,
                       ),
                       Text(
-                        "Team 3",
+                        _user.name,
                         style: TextStyle(
                           fontSize: 22.0,
                           color: Colors.white,
@@ -78,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "52",
+                                      _user.transactions.length.toString(),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         color: Colors.pinkAccent,
@@ -102,7 +106,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "28.5K",
+                                      Transaction.formattedValue(
+                                          _user.totalExpenditures()),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         color: Colors.pinkAccent,
@@ -127,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "1300",
+                                      _user.greenPoints().toString(),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 18.0,
@@ -199,7 +204,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 5.0,
                       ),
                       Text(
-                        'Buy 100 more green products \nto earn the Elite Badge',
+                        'Buy ${100 - _user.greenPoints()} more green products \nto earn the Elite Badge',
                         style: TextStyle(
                           fontSize: 15.0,
                           fontStyle: FontStyle.normal,

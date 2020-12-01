@@ -1,7 +1,10 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:gradhack/data/store.dart';
+import 'package:gradhack/data/transaction.dart';
+import 'package:gradhack/data/user.dart';
 import 'package:gradhack/pages/profile_page.dart';
-import 'package:gradhack/pages/search_store_page%20copy%202.dart';
-import 'package:gradhack/pages/search_store_page%20copy%203.dart';
 import 'package:gradhack/pages/search_store_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 import 'package:gradhack/pages/transaction_list_page.dart';
@@ -33,6 +36,12 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: DummyMainPage(title: 'Transactions'),
+      routes: {
+        ProfilePage.routeName: (context) => ProfilePage(),
+        SearchPage.routeName: (context) => SearchPage(),
+        TransactionDetailPage.routeName: (context) => TransactionDetailPage(),
+        TransactionListPage.routeName: (context) => TransactionListPage(),
+      },
     );
   }
 }
@@ -46,6 +55,40 @@ class DummyMainPage extends StatefulWidget {
 }
 
 class _DummyMainPageState extends State<DummyMainPage> {
+  User _user = User(
+    1,
+    "Person One",
+    1234.56,
+    [
+      Transaction(
+          20.0,
+          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
+          "Test reference",
+          DateTime.now()),
+      Transaction(
+          102.0,
+          Store(2, "Amazon", 1, HashMap<String, int>(), "Shopping"),
+          "Test reference",
+          DateTime.now()),
+      Transaction(
+          3.6,
+          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
+          "Test reference",
+          DateTime.now()),
+      Transaction(
+          20.0,
+          Store(3, "Unknown", 0, HashMap<String, int>(), "Unknown"),
+          "Test reference",
+          DateTime.now()),
+    ],
+  );
+
+  List<Store> _stores = [
+    new Store(1, "Tesco", 1, HashMap<String, int>(), "Groceries"),
+    new Store(2, "Amazon", 2, HashMap<String, int>(), "Shopping"),
+    new Store(3, "Unknown", 3, HashMap<String, int>(), "Unknown")
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,12 +101,8 @@ class _DummyMainPageState extends State<DummyMainPage> {
           children: <Widget>[
             RaisedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          TransactionListPage(title: "Transactions")),
-                );
+                Navigator.pushNamed(context, TransactionListPage.routeName,
+                    arguments: _user);
               },
               child: Text("Transaction list"),
             ),
@@ -80,21 +119,15 @@ class _DummyMainPageState extends State<DummyMainPage> {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfilePage(title: "Profile")),
-                );
+                Navigator.pushNamed(context, ProfilePage.routeName,
+                    arguments: _user);
               },
               child: Text("Profile"),
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SearchPage4(title: "Search")),
-                );
+                Navigator.pushNamed(context, SearchPage.routeName,
+                    arguments: SearchArguments(_user, _stores));
               },
               child: Text("Search"),
             ),

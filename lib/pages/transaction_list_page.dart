@@ -1,49 +1,19 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:gradhack/data/store.dart';
 import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
 import 'package:gradhack/pages/profile_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 
 class TransactionListPage extends StatefulWidget {
-  TransactionListPage({Key key, this.title}) : super(key: key);
-  final String title;
+  TransactionListPage({Key key}) : super(key: key);
+  final String title = "Transactions";
+  static const String routeName = "/transaction_list";
 
   @override
   _TransactionListPageState createState() => _TransactionListPageState();
 }
 
 class _TransactionListPageState extends State<TransactionListPage> {
-  User _user = User(
-    1,
-    "Test",
-    1234.56,
-    [
-      Transaction(
-          20.0,
-          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
-          "Test reference",
-          DateTime.now()),
-      Transaction(
-          102.0,
-          Store(2, "Amazon", 1, HashMap<String, int>(), "Shopping"),
-          "Test reference",
-          DateTime.now()),
-      Transaction(
-          3.6,
-          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
-          "Test reference",
-          DateTime.now()),
-      Transaction(
-          20.0,
-          Store(3, "Unknown", 0, HashMap<String, int>(), "Unknown"),
-          "Test reference",
-          DateTime.now()),
-    ],
-  );
-
   Widget displayTransaction(Transaction transaction,
           {Color oddColour = Colors.white}) =>
       GestureDetector(
@@ -78,22 +48,14 @@ class _TransactionListPageState extends State<TransactionListPage> {
                     children: [
                       Column(
                         children: [
-                          Text(transaction.formattedValue(),
+                          Text(Transaction.formattedValue(transaction.value),
                               style: TextStyle(fontSize: 16.0))
                         ],
                       ),
                       Padding(
                           padding: EdgeInsets.only(left: 15.0),
                           child: Column(
-                            children: [
-                              Icon(
-                                IconData(59108, fontFamily: 'MaterialIcons'),
-                                color:
-                                    transaction.store.sustainabilityScore >= 2
-                                        ? Colors.green
-                                        : Colors.white,
-                              ),
-                            ],
+                            children: [transaction.store.getLeaves()],
                           ))
                     ],
                   )
@@ -104,6 +66,8 @@ class _TransactionListPageState extends State<TransactionListPage> {
 
   @override
   Widget build(BuildContext context) {
+    User _user = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(
@@ -123,11 +87,8 @@ class _TransactionListPageState extends State<TransactionListPage> {
                 color: Colors.blue,
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfilePage(title: "Profile")),
-                );
+                Navigator.pushNamed(context, ProfilePage.routeName,
+                    arguments: _user);
               },
             )
           ],

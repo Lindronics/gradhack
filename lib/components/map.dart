@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Store2Map extends StatefulWidget {
-  Store2Map({Key key, this.title}) : super(key: key);
+class MapComponent extends StatefulWidget {
+  MapComponent({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _MapComponentState createState() => _MapComponentState();
 }
 
-class _ProfilePageState extends State<Store2Map> {
+class _MapComponentState extends State<MapComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
