@@ -4,6 +4,14 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:gradhack/data/store.dart';
 import 'package:gradhack/components/map.dart';
+import 'package:gradhack/data/user.dart';
+
+class SearchArguments {
+  User user;
+  List<Store> stores;
+
+  SearchArguments(this.user, this.stores);
+}
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
@@ -17,7 +25,9 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    List<Store> _stores = ModalRoute.of(context).settings.arguments;
+    final SearchArguments args = ModalRoute.of(context).settings.arguments;
+    List<Store> _stores = args.stores;
+    User _user = args.user;
 
     return Scaffold(
       appBar: AppBar(
@@ -30,6 +40,7 @@ class _SearchPageState extends State<SearchPage> {
           itemBuilder: (context, int i) {
             return CustomListItem(
               store: _stores[i],
+              user: _user,
               thumbnail: Container(
                 decoration: const BoxDecoration(color: Colors.blue),
               ),
@@ -43,10 +54,12 @@ class CustomListItem extends StatelessWidget {
   CustomListItem({
     this.thumbnail,
     this.store,
+    this.user,
   });
 
   final Widget thumbnail;
   final Store store;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +78,7 @@ class CustomListItem extends StatelessWidget {
             flex: 3, // Width of text box beside the icon
             child: _StoreDescription(
               title: store.name,
-              // user1: user,
+              user: user.name,
             ),
           ),
           store.getLeaves(),
@@ -76,15 +89,10 @@ class CustomListItem extends StatelessWidget {
 }
 
 class _StoreDescription extends StatelessWidget {
-  const _StoreDescription(
-      {Key key, this.title, this.user1, this.icon1, this.icon2, this.icon3})
-      : super(key: key);
+  const _StoreDescription({Key key, this.title, this.user}) : super(key: key);
 
   final String title;
-  final String user1;
-  final IconData icon1;
-  final IconData icon2;
-  final IconData icon3;
+  final String user;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +114,7 @@ class _StoreDescription extends StatelessWidget {
                   vertical: 2.0)), //spacing between 1st & 2nd lines of text
           Text(
             //2nd line of text HERE
-            user1.toString(), //2nd line of text variable in CustomListItem
+            user.toString(), //2nd line of text variable in CustomListItem
             style: const TextStyle(fontSize: 10.0),
           ),
           const Padding(

@@ -127,7 +127,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
             RaisedButton(
               onPressed: () {
                 Navigator.pushNamed(context, SearchPage.routeName,
-                    arguments: _stores);
+                    arguments: SearchArguments(_user, _stores));
               },
               child: Text("Search"),
             ),
