@@ -6,8 +6,8 @@ import 'package:gradhack/data/store.dart';
 import 'package:gradhack/components/map.dart';
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key key, this.title}) : super(key: key);
-  final String title;
+  SearchPage({Key key}) : super(key: key);
+  final String title = "Store search";
   static const String routeName = "/search_store";
 
   @override
@@ -17,13 +17,48 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   static const String _title = 'Search Store'; // Name of page.
 
+  IconData _score1(int totalScore) {
+    if (totalScore <= 10 && totalScore >= 1.5) {
+      return (Icons.eco);
+    }
+  }
+
+  IconData _score2(int totalScore) {
+    if (totalScore <= 10 && totalScore >= 4.5) {
+      return (Icons.eco);
+    }
+  }
+
+  IconData _score3(int totalScore) {
+    if (totalScore <= 10 && totalScore >= 7.5) {
+      return (Icons.eco);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Store> _stores = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: MyStatelessWidget(),
+      body: ListView.builder(
+          padding: const EdgeInsets.all(8.0),
+          itemExtent: 106.0,
+          itemCount: _stores.length,
+          itemBuilder: (context, int i) {
+            return CustomListItem(
+              user: _stores[i].sustainabilityScore.toString(),
+              icon1: _score1(_stores[i].sustainabilityScore),
+              icon2: _score2(_stores[i].sustainabilityScore),
+              icon3: _score3(_stores[i].sustainabilityScore),
+              thumbnail: Container(
+                decoration: const BoxDecoration(color: Colors.blue),
+              ),
+              title: _stores[i].name,
+            );
+          }),
     );
   }
 }
@@ -141,83 +176,6 @@ class _StoreDescription extends StatelessWidget {
               ])
         ],
       ),
-    );
-  }
-}
-
-int sumScore(int a, int b, int c) {
-  int total = a + b + c;
-  return total;
-}
-
-/// This is the stateless widget that the main application instantiates.
-class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
-
-  Store _store1 = new Store(
-      1, "Tesco", sumScore(3, 2, 2), HashMap<String, int>(), "Groceries");
-  Store _store2 = new Store(
-      2, "Amazon", sumScore(3, 3, 3), HashMap<String, int>(), "Shopping");
-  Store _store3 = new Store(
-      3, "Unknown", sumScore(1, 1, 0), HashMap<String, int>(), "Unknown");
-
-  IconData _score1(int totalScore) {
-    if (totalScore <= 10 && totalScore >= 1.5) {
-      return (Icons.eco);
-    }
-  }
-
-  IconData _score2(int totalScore) {
-    if (totalScore <= 10 && totalScore >= 4.5) {
-      return (Icons.eco);
-    }
-  }
-
-  IconData _score3(int totalScore) {
-    if (totalScore <= 10 && totalScore >= 7.5) {
-      return (Icons.eco);
-    }
-  }
-
-  static const IconData eco = IconData(0xe6e4, fontFamily: 'MaterialIcons');
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(8.0),
-      itemExtent: 106.0,
-      children: <CustomListItem>[
-        CustomListItem(
-          user: _store1.sustainabilityScore.toString(),
-          icon1: _score1(_store1.sustainabilityScore),
-          icon2: _score2(_store1.sustainabilityScore),
-          icon3: _score3(_store1.sustainabilityScore),
-          thumbnail: Container(
-            decoration: const BoxDecoration(color: Colors.blue),
-          ),
-          title: _store1.name,
-        ),
-        CustomListItem(
-          user: _store2.sustainabilityScore.toString(),
-          icon1: _score1(_store2.sustainabilityScore),
-          icon2: _score2(_store2.sustainabilityScore),
-          icon3: _score3(_store2.sustainabilityScore),
-          thumbnail: Container(
-            decoration: const BoxDecoration(color: Colors.yellow),
-          ),
-          title: _store2.name,
-        ),
-        CustomListItem(
-          user: _store3.sustainabilityScore.toString(),
-          icon1: _score1(_store3.sustainabilityScore),
-          icon2: _score2(_store3.sustainabilityScore),
-          icon3: _score3(_store3.sustainabilityScore),
-          thumbnail: Container(
-            decoration: const BoxDecoration(color: Colors.red),
-          ),
-          title: _store3.name,
-        ),
-      ],
     );
   }
 }

@@ -83,6 +83,12 @@ class _DummyMainPageState extends State<DummyMainPage> {
     ],
   );
 
+  List<Store> _stores = [
+    new Store(1, "Tesco", 1, HashMap<String, int>(), "Groceries"),
+    new Store(2, "Amazon", 2, HashMap<String, int>(), "Shopping"),
+    new Store(3, "Unknown", 3, HashMap<String, int>(), "Unknown")
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,11 +126,8 @@ class _DummyMainPageState extends State<DummyMainPage> {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SearchPage(title: "Search")),
-                );
+                Navigator.pushNamed(context, SearchPage.routeName,
+                    arguments: _stores);
               },
               child: Text("Search"),
             ),
