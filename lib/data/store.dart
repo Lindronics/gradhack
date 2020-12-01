@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Store {
   int id;
@@ -7,18 +8,10 @@ class Store {
   int sustainabilityScore;
   HashMap<String, int> individualScores;
   String category;
-  int score1;
-  int score2;
-  int score3;
+  LatLng location;
 
-  Store(id, name, sustainabilityScore, HashMap<String, int> individualScores,
-      category) {
-    this.id = id;
-    this.name = name;
-    this.sustainabilityScore = sustainabilityScore;
-    this.individualScores = individualScores;
-    this.category = category;
-  }
+  Store(this.id, this.name, this.sustainabilityScore, this.category,
+      {this.individualScores, this.location});
 
   Row getLeaves() {
     return Row(
