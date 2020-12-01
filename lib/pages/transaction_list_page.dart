@@ -55,15 +55,7 @@ class _TransactionListPageState extends State<TransactionListPage> {
                       Padding(
                           padding: EdgeInsets.only(left: 15.0),
                           child: Column(
-                            children: [
-                              Icon(
-                                IconData(59108, fontFamily: 'MaterialIcons'),
-                                color:
-                                    transaction.store.sustainabilityScore >= 2
-                                        ? Colors.green
-                                        : Colors.white,
-                              ),
-                            ],
+                            children: [transaction.store.getLeaves()],
                           ))
                     ],
                   )

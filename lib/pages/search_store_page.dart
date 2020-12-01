@@ -15,26 +15,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  static const String _title = 'Search Store'; // Name of page.
-
-  IconData _score1(int totalScore) {
-    if (totalScore <= 10 && totalScore >= 1.5) {
-      return (Icons.eco);
-    }
-  }
-
-  IconData _score2(int totalScore) {
-    if (totalScore <= 10 && totalScore >= 4.5) {
-      return (Icons.eco);
-    }
-  }
-
-  IconData _score3(int totalScore) {
-    if (totalScore <= 10 && totalScore >= 7.5) {
-      return (Icons.eco);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Store> _stores = ModalRoute.of(context).settings.arguments;
@@ -49,14 +29,10 @@ class _SearchPageState extends State<SearchPage> {
           itemCount: _stores.length,
           itemBuilder: (context, int i) {
             return CustomListItem(
-              user: _stores[i].sustainabilityScore.toString(),
-              icon1: _score1(_stores[i].sustainabilityScore),
-              icon2: _score2(_stores[i].sustainabilityScore),
-              icon3: _score3(_stores[i].sustainabilityScore),
+              store: _stores[i],
               thumbnail: Container(
                 decoration: const BoxDecoration(color: Colors.blue),
               ),
-              title: _stores[i].name,
             );
           }),
     );
@@ -66,19 +42,11 @@ class _SearchPageState extends State<SearchPage> {
 class CustomListItem extends StatelessWidget {
   CustomListItem({
     this.thumbnail,
-    this.title,
-    this.user,
-    this.icon1,
-    this.icon2,
-    this.icon3,
+    this.store,
   });
 
   final Widget thumbnail;
-  final String title;
-  final String user;
-  final IconData icon1;
-  final IconData icon2;
-  final IconData icon3;
+  final Store store;
 
   @override
   Widget build(BuildContext context) {
@@ -96,25 +64,11 @@ class CustomListItem extends StatelessWidget {
           Expanded(
             flex: 3, // Width of text box beside the icon
             child: _StoreDescription(
-              title: title,
-              user1: user,
+              title: store.name,
+              // user1: user,
             ),
           ),
-          Icon(
-            icon1, //The more icon -> could be switched to go or expand icon.
-            size: 22.0,
-            color: Colors.green,
-          ),
-          Icon(
-            icon2, //The more icon -> could be switched to go or expand icon.
-            size: 22.0,
-            color: Colors.green,
-          ),
-          Icon(
-            icon3, //The more icon -> could be switched to go or expand icon.
-            size: 22.0,
-            color: Colors.green,
-          ),
+          store.getLeaves(),
         ],
       ),
     );
