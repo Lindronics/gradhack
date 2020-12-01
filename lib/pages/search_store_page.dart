@@ -76,7 +76,7 @@ class CustomListItem extends StatelessWidget {
           Expanded(
             flex: 3, // Width of text box beside the icon
             child: _StoreDescription(
-              title: store.name,
+              store: store,
               user: user.name,
             ),
           ),
@@ -88,9 +88,9 @@ class CustomListItem extends StatelessWidget {
 }
 
 class _StoreDescription extends StatelessWidget {
-  const _StoreDescription({Key key, this.title, this.user}) : super(key: key);
+  const _StoreDescription({Key key, this.store, this.user}) : super(key: key);
 
-  final String title;
+  final Store store;
   final String user;
 
   @override
@@ -102,7 +102,7 @@ class _StoreDescription extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            title, //refers to 1st line of Text in CustomListItem
+            store.name, //refers to 1st line of Text in CustomListItem
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14.0, //Font size of 1st line of text.
@@ -124,13 +124,10 @@ class _StoreDescription extends StatelessWidget {
               children: <Widget>[
                 RaisedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MapComponent(
-                              title:
-                                  title)), //Add location details here to be passed into the Map1 Page
-                    );
+                    if (store.location != null) {
+                      Navigator.pushNamed(context, MapComponent.routeName,
+                          arguments: store);
+                    }
                   },
                   child: Text("View on Map"),
                 ),
