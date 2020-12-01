@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gradhack/pages/profile_page.dart';
-import 'package:gradhack/pages/search_store_page%20copy%202.dart';
-import 'package:gradhack/pages/search_store_page%20copy%203.dart';
 import 'package:gradhack/pages/search_store_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 import 'package:gradhack/pages/transaction_list_page.dart';
