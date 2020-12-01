@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gradhack/components/map.dart';
 import 'package:gradhack/data/store.dart';
 import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget {
         SearchPage.routeName: (context) => SearchPage(),
         TransactionDetailPage.routeName: (context) => TransactionDetailPage(),
         TransactionListPage.routeName: (context) => TransactionListPage(),
+        MapComponent.routeName: (context) => MapComponent(),
       },
     );
   }
@@ -55,42 +58,33 @@ class DummyMainPage extends StatefulWidget {
 }
 
 class _DummyMainPageState extends State<DummyMainPage> {
-  User _user = User(
-    1,
-    "Person One",
-    1234.56,
-    [
-      Transaction(
-          20.0,
-          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
-          "Test reference",
-          DateTime.now()),
-      Transaction(
-          102.0,
-          Store(2, "Amazon", 1, HashMap<String, int>(), "Shopping"),
-          "Test reference",
-          DateTime.now()),
-      Transaction(
-          3.6,
-          Store(1, "Tesco", 2, HashMap<String, int>(), "Groceries"),
-          "Test reference",
-          DateTime.now()),
-      Transaction(
-          20.0,
-          Store(3, "Unknown", 0, HashMap<String, int>(), "Unknown"),
-          "Test reference",
-          DateTime.now()),
-    ],
-  );
-
-  List<Store> _stores = [
-    new Store(1, "Tesco", 1, HashMap<String, int>(), "Groceries"),
-    new Store(2, "Amazon", 2, HashMap<String, int>(), "Shopping"),
-    new Store(3, "Unknown", 3, HashMap<String, int>(), "Unknown")
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<Store> _stores = [
+      new Store(0, "Tesco Metro", 2, "Groceries",
+          location: LatLng(51.5143636, -0.0973289)),
+      new Store(
+        1,
+        "Amazon",
+        1,
+        "Shopping",
+      ),
+      new Store(2, "Sainsbury's Local", 3, "Groceries",
+          location: LatLng(51.5143768, -0.0973503)),
+    ];
+
+    User _user = User(
+      1,
+      "Person One",
+      1234.56,
+      [
+        Transaction(20.87, _stores[0], "Test reference", DateTime.now()),
+        Transaction(102.0, _stores[1], "Test reference", DateTime.now()),
+        Transaction(3.6, _stores[2], "Test reference", DateTime.now()),
+        Transaction(25.2, _stores[0], "Test reference", DateTime.now()),
+      ],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
