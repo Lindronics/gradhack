@@ -10,6 +10,8 @@ class Store {
   int score1;
   int score2;
   int score3;
+  String mapTitle;
+  IconData logo;
 
   Store(id, name, sustainabilityScore, HashMap<String, int> individualScores,
       category) {
@@ -38,4 +40,16 @@ class Store {
       ],
     );
   }
+
+IconData getIcons(String category){
+  if (category == "Groceries"){
+      return Icons.store;
+  }
+    if (category == "Shopping"){
+      return Icons.shopping_cart; 
+  }
+    if (category == "Unknown"){
+      return Icons.help;
+  }
+}
 }
