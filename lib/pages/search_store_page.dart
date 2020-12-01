@@ -6,6 +6,8 @@ import 'package:gradhack/data/store.dart';
 import 'package:gradhack/components/map.dart';
 import 'package:gradhack/data/user.dart';
 
+import 'transaction_list_page.dart';
+
 class SearchArguments {
   User user;
   List<Store> stores;
@@ -23,22 +25,30 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  int _selectedIndex = 2;
+  
   @override
   Widget build(BuildContext context) {
     final SearchArguments args = ModalRoute.of(context).settings.arguments;
     List<Store> _stores = args.stores;
     User _user = args.user;
 
+void _onItemTapped(int index) {
+    setState(() {
+      if (index == 1) {Navigator.pushNamed(context, TransactionListPage.routeName,arguments: _user);
+    } if (index == 2 ) {{Navigator.pushNamed(context, SearchPage.routeName,arguments: SearchArguments(_user, _stores));}}
+  });}
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-            color: Colors.blue, //change your color here
+            color: Colors.white, //change your color here
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red,
           elevation: 0.0,
           title: Text(
             widget.title,
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.white),
           )),
       body: ListView.builder(
           padding: const EdgeInsets.all(8.0),
@@ -53,6 +63,26 @@ class _SearchPageState extends State<SearchPage> {
               ),
             );
           }),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Transactions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        backgroundColor: Colors.red,
+        selectedItemColor: Colors.white,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
@@ -142,13 +172,15 @@ class _StoreDescription extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 RaisedButton(
+                  color: Colors.red,
                   onPressed: () {
                     if (store.location != null) {
                       Navigator.pushNamed(context, MapComponent.routeName,
                           arguments: store);
                     }
                   },
-                  child: Text("View on Map"),
+                  child: Text("View on Map",
+                            style: TextStyle(color: Colors.white)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),),
                 ),

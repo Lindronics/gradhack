@@ -17,6 +17,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -58,8 +59,11 @@ class DummyMainPage extends StatefulWidget {
 }
 
 class _DummyMainPageState extends State<DummyMainPage> {
+    int _selectedIndex = 0;
+  
   @override
   Widget build(BuildContext context) {
+    
     List<Store> _stores = [
       new Store(0, "Tesco Metro", 2, "Groceries",
           location: LatLng(51.5143636, -0.0973289)),
@@ -84,6 +88,12 @@ class _DummyMainPageState extends State<DummyMainPage> {
         Transaction(25.2, _stores[0], "Test reference", DateTime.now()),
       ],
     );
+
+  void _onItemTapped(int index) {
+    setState(() {
+      if (index == 1) {Navigator.pushNamed(context, TransactionListPage.routeName,arguments: _user);
+    } if (index==2) {{Navigator.pushNamed(context, SearchPage.routeName,arguments: SearchArguments(_user, _stores));}}
+  });}
 
     return Scaffold(
       appBar: AppBar(
@@ -128,8 +138,28 @@ class _DummyMainPageState extends State<DummyMainPage> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Transactions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        backgroundColor: Colors.red,
+        selectedItemColor: Colors.white,
+        onTap: _onItemTapped,
+      ),
     );
   }
-}
 
 // Starting the Search Page HERE
+}

@@ -17,8 +17,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
-        backgroundColor: Colors.redAccent,
+        iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
+        title: Text("Profile", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.red,
         elevation: 0,
       ),
       body: Column(
@@ -28,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.red, Colors.red])),
+                      colors: [Colors.white, Colors.white])),
               child: Container(
                 width: double.infinity,
                 height: 350.0,
@@ -41,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         backgroundImage: NetworkImage(
                           "https://hbr.org/resources/images/article_assets/2020/03/Mar20_05_1204549918-2-1024x576.jpg",
                         ),
-                        radius: 50.0,
+                        radius: 45.0,
                       ),
                       SizedBox(
                         height: 10.0,
@@ -50,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         _user.name,
                         style: TextStyle(
                           fontSize: 22.0,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                       SizedBox(
@@ -60,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         margin: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 5.0),
                         clipBehavior: Clip.antiAlias,
-                        color: Colors.white,
+                        color: Colors.red,
                         elevation: 5.0,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -73,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Text(
                                       "Purchases",
                                       style: TextStyle(
-                                        color: Colors.redAccent,
+                                        color: Colors.white,
                                         fontSize: 20.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -85,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       _user.transactions.length.toString(),
                                       style: TextStyle(
                                         fontSize: 18.0,
-                                        color: Colors.pinkAccent,
+                                        color: Colors.white,
                                       ),
                                     )
                                   ],
@@ -97,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Text(
                                       "Cost",
                                       style: TextStyle(
-                                        color: Colors.redAccent,
+                                        color: Colors.white,
                                         fontSize: 20.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -110,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           _user.totalExpenditures()),
                                       style: TextStyle(
                                         fontSize: 18.0,
-                                        color: Colors.pinkAccent,
+                                        color: Colors.white,
                                       ),
                                     )
                                   ],
@@ -123,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       "Green Points",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        color: Colors.redAccent,
+                                        color: Colors.white,
                                         fontSize: 20.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -136,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 18.0,
-                                        color: Colors.pinkAccent,
+                                        color: Colors.white,
                                       ),
                                     )
                                   ],
@@ -146,9 +149,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.all(20.0),
-                        padding: const EdgeInsets.all(10.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                    _user.getDownArrows(_user.greenPoints())])
+                      ,Container(
+                        margin:  EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(top: 10.0),
                         height: 30,
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -160,8 +167,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Colors.red,
                                   Colors.yellow,
                                   Colors.green
-                                ])),
-                      )
+                                ]))
+                      
+                      ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                    _user.getUpArrows(_user.greenPoints())]),
                     ],
                   ),
                 ),
@@ -234,7 +246,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     gradient: LinearGradient(
                         begin: Alignment.centerRight,
                         end: Alignment.centerLeft,
-                        colors: [Colors.redAccent, Colors.red]),
+                        colors: [Colors.red, Colors.red]),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Container(
