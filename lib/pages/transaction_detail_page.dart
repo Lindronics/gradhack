@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class TransactionDetailPage extends StatefulWidget {
   TransactionDetailPage({Key key, this.title}) : super(key: key);
   final String title;
+  static const String routeName = "/transaction_detail";
 
   @override
   _TransactionDetailPageState createState() => _TransactionDetailPageState();
