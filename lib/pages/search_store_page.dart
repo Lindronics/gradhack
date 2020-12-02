@@ -6,8 +6,6 @@ import 'package:gradhack/data/store.dart';
 import 'package:gradhack/components/map.dart';
 import 'package:gradhack/data/user.dart';
 
-import 'transaction_list_page.dart';
-
 class SearchArguments {
   User user;
   List<Store> stores;
@@ -19,8 +17,8 @@ class SearchStorePage extends StatelessWidget {
   SearchStorePage({Key key, this.stores, this.user}) : super(key: key);
   final String title = "Store search";
   static const String routeName = "/search_store";
-  List<Store> stores;
-  User user;
+  final List<Store> stores;
+  final User user;
 
   @override
   Widget build(BuildContext context) {

@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:gradhack/data/store.dart';
 import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
-import 'package:gradhack/pages/profile_page.dart';
-import 'package:gradhack/pages/search_store_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 
 class TransactionListPage extends StatelessWidget {
   TransactionListPage({Key key, this.context, this.user}) : super(key: key);
   final String title = "Transactions";
   static const String routeName = "/transaction_list";
-  BuildContext context;
-  User user;
+  final BuildContext context;
+  final User user;
 
   Widget displayTransaction(Transaction transaction,
           {Color oddColour = Colors.red}) =>
