@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: DummyMainPage(title: 'Transactions'),
+      home: DummyMainPage(title: 'HSBC'),
       routes: {
         ProfilePage.routeName: (context) => ProfilePage(),
         SearchStorePage.routeName: (context) => SearchStorePage(),
@@ -122,7 +122,28 @@ class _DummyMainPageState extends State<DummyMainPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
+        backgroundColor: Colors.red,
+        elevation: 0.0,
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, ProfilePage.routeName,
+                  arguments: _user);
+            },
+          )
+        ],
       ),
       body: PageView(
         controller: _pageController,
