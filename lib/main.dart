@@ -6,7 +6,6 @@ import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
 import 'package:gradhack/pages/profile_page.dart';
 import 'package:gradhack/pages/search_store_page.dart';
-import 'package:gradhack/pages/transaction_detail_page.dart';
 import 'package:gradhack/pages/transaction_list_page.dart';
 import 'package:gradhack/pages/Merchant_Details.dart';
 
