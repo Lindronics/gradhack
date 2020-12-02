@@ -15,75 +15,28 @@ class SearchArguments {
   SearchArguments(this.user, this.stores);
 }
 
-class SearchPage extends StatefulWidget {
-  SearchPage({Key key}) : super(key: key);
+class SearchStorePage extends StatelessWidget {
+  SearchStorePage({Key key, this.stores, this.user}) : super(key: key);
   final String title = "Store search";
   static const String routeName = "/search_store";
+  List<Store> stores;
+  User user;
 
-  @override
-  _SearchPageState createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  int _selectedIndex = 2;
-  
   @override
   Widget build(BuildContext context) {
-    final SearchArguments args = ModalRoute.of(context).settings.arguments;
-    List<Store> _stores = args.stores;
-    User _user = args.user;
-
-void _onItemTapped(int index) {
-    setState(() {
-      if (index == 1) {Navigator.pushNamed(context, TransactionListPage.routeName,arguments: _user);
-    } if (index == 2 ) {{Navigator.pushNamed(context, SearchPage.routeName,arguments: SearchArguments(_user, _stores));}}
-  });}
-
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
-          ),
-          backgroundColor: Colors.red,
-          elevation: 0.0,
-          title: Text(
-            widget.title,
-            style: TextStyle(color: Colors.white),
-          )),
-      body: ListView.builder(
-          padding: const EdgeInsets.all(8.0),
-          itemExtent: 129.0,
-          itemCount: _stores.length,
-          itemBuilder: (context, int i) {
-            return CustomListItem(
-              store: _stores[i],
-              user: _user,
-              thumbnail: Container(
-                decoration: const BoxDecoration(color: Colors.blue),
-              ),
-            );
-          }),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Transactions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        backgroundColor: Colors.red,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
-      ),
-    );
+    return ListView.builder(
+        padding: const EdgeInsets.all(8.0),
+        itemExtent: 129.0,
+        itemCount: stores.length,
+        itemBuilder: (context, int i) {
+          return CustomListItem(
+            store: stores[i],
+            user: user,
+            thumbnail: Container(
+              decoration: const BoxDecoration(color: Colors.blue),
+            ),
+          );
+        });
   }
 }
 
@@ -101,37 +54,38 @@ class CustomListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: 1.0), // Space between the tiles.
-      child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          elevation: 5,
-          child: Container(
+        padding: const EdgeInsets.symmetric(
+            vertical: 1.0), // Space between the tiles.
+        child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 5,
+            child: Container(
               padding: EdgeInsets.only(
                   top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
-                  
-      
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex:
-                1, // Width of the boxes before text -> Could be replaced with Icons of stores.
-            child: Icon(store.getIcons(store.category), color: Colors.black, size: 50.0,)
-          ),
-          Expanded(
-            flex: 2, // Width of text box beside the icon
-            child: _StoreDescription(
-              store: store,
-              user: user.name,
-            ),
-          ),
-          store.getLeaves(),
-        ],
-      ),
-    )));
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                      flex:
+                          1, // Width of the boxes before text -> Could be replaced with Icons of stores.
+                      child: Icon(
+                        store.getIcons(store.category),
+                        color: Colors.black,
+                        size: 50.0,
+                      )),
+                  Expanded(
+                    flex: 2, // Width of text box beside the icon
+                    child: _StoreDescription(
+                      store: store,
+                      user: user.name,
+                    ),
+                  ),
+                  store.getLeaves(),
+                ],
+              ),
+            )));
   }
 }
 
@@ -180,9 +134,10 @@ class _StoreDescription extends StatelessWidget {
                     }
                   },
                   child: Text("View on Map",
-                            style: TextStyle(color: Colors.white)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),),
+                      style: TextStyle(color: Colors.white)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
                 ),
               ])
         ],

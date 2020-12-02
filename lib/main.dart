@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       home: DummyMainPage(title: 'Transactions'),
       routes: {
         ProfilePage.routeName: (context) => ProfilePage(),
-        SearchPage.routeName: (context) => SearchPage(),
+        SearchStorePage.routeName: (context) => SearchStorePage(),
         TransactionDetailPage.routeName: (context) => TransactionDetailPage(),
         TransactionListPage.routeName: (context) => TransactionListPage(),
         MapComponent.routeName: (context) => MapComponent(),
@@ -120,7 +120,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.pushNamed(context, SearchPage.routeName,
+                Navigator.pushNamed(context, SearchStorePage.routeName,
                     arguments: SearchArguments(_user, _stores));
               },
               child: Text("Search"),
@@ -129,9 +129,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
         ),
       ),
       TransactionListPage(context: context, user: _user),
-      Text(
-        'Index 2: School',
-      ),
+      SearchStorePage(stores: _stores, user: _user),
     ];
 
     void _onItemTapped(int index) {
