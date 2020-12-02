@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       routes: {
         ProfilePage.routeName: (context) => ProfilePage(),
         SearchStorePage.routeName: (context) => SearchStorePage(),
-        TransactionDetailPage.routeName: (context) => TransactionDetailPage(),
+        MerchantDetail.routeName: (context) => MerchantDetail(),
         TransactionListPage.routeName: (context) => TransactionListPage(),
         MapComponent.routeName: (context) => MapComponent(),
       },

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gradhack/data/transaction.dart';
+import 'package:intl/intl.dart';
 
 class MerchantDetail extends StatefulWidget {
-  MerchantDetail({Key key, this.title}) : super(key: key);
-  final String title;
+  MerchantDetail({Key key}) : super(key: key);
+  static const String routeName = "/transaction";
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -11,9 +13,11 @@ class MerchantDetail extends StatefulWidget {
 class _ProfilePageState extends State<MerchantDetail> {
   @override
   Widget build(BuildContext context) {
+    Transaction _transaction = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(_transaction.store.name),
         backgroundColor: Colors.red,
         elevation: 0,
       ),
@@ -43,7 +47,7 @@ class _ProfilePageState extends State<MerchantDetail> {
                         height: 10.0,
                       ),
                       Text(
-                        "€ 12.00",
+                        Transaction.formattedValue(_transaction.value),
                         style: TextStyle(
                           fontSize: 26.0,
                           color: Colors.black,
@@ -54,7 +58,8 @@ class _ProfilePageState extends State<MerchantDetail> {
                         height: 10.0,
                       ),
                       Text(
-                        "12/12/2020  15:00",
+                        DateFormat('dd/MM/yyy kk:mm')
+                            .format(_transaction.dateTime),
                         style: TextStyle(
                           fontSize: 20.0,
                           color: Colors.black,
@@ -65,9 +70,7 @@ class _ProfilePageState extends State<MerchantDetail> {
                         height: 10.0,
                       ),
                       Text(
-                        "payment reference lorem ipsum dolor sit amnet"
-
-                        ,
+                        _transaction.reference,
                         style: TextStyle(
                           fontSize: 14.0,
                           color: Colors.black,
@@ -76,20 +79,20 @@ class _ProfilePageState extends State<MerchantDetail> {
                       SizedBox(
                         height: 10.0,
                       ),
-                      Text("Sustainability Score",style: TextStyle(fontWeight: FontWeight.bold,fontSize : 28.0,color: Colors.black)),
+                      Text("Sustainability Score",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28.0,
+                              color: Colors.black)),
                       SizedBox(
                         height: 10.0,
                       ),
-
-                      Icon(
-                        Icons.eco,
-                        color: Colors.green,
-                        size: 30.0,
+                      Container(
+                        // TODO alignment
+                        child: _transaction.store.getLeaves(),
                       ),
                       Text(
-                        "This merchant has been certified to be "
-
-                        ,
+                        "This merchant has been certified to be ",
                         style: TextStyle(
                           fontSize: 14.0,
                           color: Colors.black,
@@ -99,20 +102,16 @@ class _ProfilePageState extends State<MerchantDetail> {
                         height: 10.0,
                       ),
                       Text(
-                        "sustainable"
-
-                        ,
+                        "sustainable.",
                         style: TextStyle(
                           fontSize: 14.0,
                           color: Colors.black,
                         ),
                       ),
-
                     ],
                   ),
                 ),
               )),
-
           Container(
             width: 110.00,
             child: RaisedButton(
@@ -131,7 +130,7 @@ class _ProfilePageState extends State<MerchantDetail> {
                   ),
                   child: Container(
                     constraints:
-                    BoxConstraints(maxWidth: 110.0, minHeight: 35.0),
+                        BoxConstraints(maxWidth: 110.0, minHeight: 35.0),
                     alignment: Alignment.center,
                     child: Text(
                       "Learn More",
@@ -139,18 +138,21 @@ class _ProfilePageState extends State<MerchantDetail> {
                           color: Colors.white,
                           fontSize: 18.0,
                           fontWeight: FontWeight.w300),
-
                     ),
-
                   ),
                 )),
-
           ),
-          Text("Breakdown",style: TextStyle(fontWeight: FontWeight.bold,fontSize : 28.0,color: Colors.black)),
+          Text("Breakdown",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28.0,
+                  color: Colors.black)),
           SizedBox(
             height: 20.0,
           ),
-          Text("Organic Products                      ",textAlign: TextAlign.left,style: TextStyle(fontSize : 18.0,color: Colors.black)),
+          Text("Organic Products                      ",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 18.0, color: Colors.black)),
           Icon(
             Icons.eco,
             color: Colors.green,
@@ -159,13 +161,14 @@ class _ProfilePageState extends State<MerchantDetail> {
           SizedBox(
             height: 15.0,
           ),
-          Text("Green Energy                        ",textAlign: TextAlign.left,style: TextStyle(fontSize : 18.0,color: Colors.black)),
+          Text("Green Energy                        ",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 18.0, color: Colors.black)),
           Icon(
             Icons.eco,
             color: Colors.green,
             size: 30.0,
           ),
-
           SizedBox(
             height: 10.0,
           ),

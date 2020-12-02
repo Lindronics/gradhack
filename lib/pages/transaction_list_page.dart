@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
-import 'package:gradhack/pages/transaction_detail_page.dart';
+import 'package:gradhack/pages/Merchant_Details.dart';
 
 class TransactionListPage extends StatelessWidget {
   TransactionListPage({Key key, this.context, this.user}) : super(key: key);
@@ -14,12 +14,8 @@ class TransactionListPage extends StatelessWidget {
           {Color oddColour = Colors.red}) =>
       GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    TransactionDetailPage(title: transaction.store.name)),
-          );
+          Navigator.pushNamed(context, MerchantDetail.routeName,
+              arguments: transaction);
         },
         child: Card(
           shape: RoundedRectangleBorder(
