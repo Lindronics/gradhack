@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gradhack/components/map.dart';
@@ -6,7 +8,6 @@ import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
 import 'package:gradhack/pages/profile_page.dart';
 import 'package:gradhack/pages/search_store_page.dart';
-import 'package:gradhack/pages/transaction_detail_page.dart';
 import 'package:gradhack/pages/transaction_list_page.dart';
 import 'package:gradhack/pages/Merchant_Details.dart';
 
@@ -76,17 +77,19 @@ class _DummyMainPageState extends State<DummyMainPage> {
   @override
   Widget build(BuildContext context) {
     List<Store> _stores = [
-      new Store(0, "Tesco Metro", 2, "Groceries",
-          location: LatLng(51.5143636, -0.0973289)),
+      new Store(0, "Tesco Metro", 0, "Groceries", HashMap<String,int>(),
+          [3,2,1], LatLng(51.5143636, -0.0973289)),
       new Store(
         1,
         "Amazon",
-        1,
-        "Shopping",
-      ),
-      new Store(2, "Sainsbury's Local", 3, "Groceries",
-          location: LatLng(51.5143768, -0.0973503)),
+        0,
+        "Shopping", HashMap<String,int>(),
+        [1,1,1], null),
+      new Store(2, "Sainsbury's Local", 0, "Groceries", HashMap<String,int>(), 
+      [3,3,3], LatLng(51.5143768, -0.0973503)),
     ];
+
+
 
     User _user = User(
       1,
@@ -107,7 +110,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
           children: <Widget>[],
         ),
       ),
-      TransactionListPage(context: context, user: _user),
+      TransactionListPage(context: context, user: _user, stores: _stores),
       SearchStorePage(stores: _stores, user: _user),
     ];
 

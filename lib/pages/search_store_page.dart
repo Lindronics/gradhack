@@ -22,6 +22,7 @@ class SearchStorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemExtent: 129.0,
@@ -51,6 +52,8 @@ class CustomListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  store.calculateSustainabilityScore(store.initialScore);
+  
     return Padding(
         padding: const EdgeInsets.symmetric(
             vertical: 1.0), // Space between the tiles.
@@ -95,6 +98,7 @@ class _StoreDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding:
           const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0), // padding of the tiles
