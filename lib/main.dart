@@ -17,7 +17,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,11 +59,10 @@ class DummyMainPage extends StatefulWidget {
 }
 
 class _DummyMainPageState extends State<DummyMainPage> {
-    int _selectedIndex = 0;
-  
+  int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    
     List<Store> _stores = [
       new Store(0, "Tesco Metro", 2, "Groceries",
           location: LatLng(51.5143636, -0.0973289)),
@@ -89,17 +88,8 @@ class _DummyMainPageState extends State<DummyMainPage> {
       ],
     );
 
-  void _onItemTapped(int index) {
-    setState(() {
-      if (index == 1) {Navigator.pushNamed(context, TransactionListPage.routeName,arguments: _user);
-    } if (index==2) {{Navigator.pushNamed(context, SearchPage.routeName,arguments: SearchArguments(_user, _stores));}}
-  });}
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
+    List<Widget> _pages = <Widget>[
+      Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -138,6 +128,23 @@ class _DummyMainPageState extends State<DummyMainPage> {
           ],
         ),
       ),
+      TransactionListPage(context: context, user: _user),
+      Text(
+        'Index 2: School',
+      ),
+    ];
+
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
