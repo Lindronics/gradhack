@@ -8,6 +8,7 @@ import 'package:gradhack/pages/profile_page.dart';
 import 'package:gradhack/pages/search_store_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 import 'package:gradhack/pages/transaction_list_page.dart';
+import 'package:gradhack/pages/Merchant_Details.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       routes: {
         ProfilePage.routeName: (context) => ProfilePage(),
         SearchStorePage.routeName: (context) => SearchStorePage(),
-        TransactionDetailPage.routeName: (context) => TransactionDetailPage(),
+        MerchantDetail.routeName: (context) => MerchantDetail(),
         TransactionListPage.routeName: (context) => TransactionListPage(),
         MapComponent.routeName: (context) => MapComponent(),
       },
