@@ -105,40 +105,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
       Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, TransactionListPage.routeName,
-                    arguments: _user);
-              },
-              child: Text("Transaction list"),
-            ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          TransactionDetailPage(title: "Transaction detail")),
-                );
-              },
-              child: Text("Transaction detail"),
-            ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, ProfilePage.routeName,
-                    arguments: _user);
-              },
-              child: Text("Profile"),
-            ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, SearchStorePage.routeName,
-                    arguments: SearchArguments(_user, _stores));
-              },
-              child: Text("Search"),
-            ),
-          ],
+          children: <Widget>[],
         ),
       ),
       TransactionListPage(context: context, user: _user),
