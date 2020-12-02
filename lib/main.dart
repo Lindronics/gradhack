@@ -60,6 +60,19 @@ class DummyMainPage extends StatefulWidget {
 
 class _DummyMainPageState extends State<DummyMainPage> {
   int _selectedIndex = 0;
+  PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +148,8 @@ class _DummyMainPageState extends State<DummyMainPage> {
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
+        _pageController.animateToPage(index,
+            duration: Duration(milliseconds: 250), curve: Curves.easeOut);
       });
     }
 
@@ -142,7 +157,13 @@ class _DummyMainPageState extends State<DummyMainPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: _pages[_selectedIndex],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() => _selectedIndex = index);
+        },
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
