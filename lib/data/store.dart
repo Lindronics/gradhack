@@ -41,8 +41,6 @@ class Store {
     if (category == "Groceries") {
       return Icons.shopping_cart;
     }
-    if (category == "Unknown") {
-      return Icons.help;
-    }
+    return Icons.help;
   }
 }

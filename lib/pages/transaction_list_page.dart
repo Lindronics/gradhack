@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
-import 'package:gradhack/pages/profile_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 
-class TransactionListPage extends StatefulWidget {
-  TransactionListPage({Key key}) : super(key: key);
+class TransactionListPage extends StatelessWidget {
+  TransactionListPage({Key key, this.context, this.user}) : super(key: key);
   final String title = "Transactions";
   static const String routeName = "/transaction_list";
+  final BuildContext context;
+  final User user;
 
-  @override
-  _TransactionListPageState createState() => _TransactionListPageState();
-}
-
-class _TransactionListPageState extends State<TransactionListPage> {
   Widget displayTransaction(Transaction transaction,
-          {Color oddColour = Colors.white}) =>
+          {Color oddColour = Colors.red}) =>
       GestureDetector(
         onTap: () {
           Navigator.push(
@@ -66,79 +62,50 @@ class _TransactionListPageState extends State<TransactionListPage> {
 
   @override
   Widget build(BuildContext context) {
-    User _user = ModalRoute.of(context).settings.arguments;
-
-    return Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.blue, //change your color here
-          ),
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          title: Text(
-            widget.title,
-            style: TextStyle(color: Colors.black),
-          ),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.account_circle,
-                color: Colors.blue,
+    return Container(
+        margin: EdgeInsets.all(5.0),
+        child: Column(
+          children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, ProfilePage.routeName,
-                    arguments: _user);
-              },
-            )
-          ],
-        ),
-        body: Container(
-            margin: EdgeInsets.all(5.0),
-            child: Column(
-              children: [
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 5,
-                  color: Colors.blue,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
+              elevation: 5,
+              color: Colors.red,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "Balance",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              _user.balanceString(),
-                              style:
-                                  TextStyle(fontSize: 30, color: Colors.white),
-                            ),
-                          ],
+                        Text(
+                          "Balance",
+                          style: TextStyle(fontSize: 15, color: Colors.white),
                         ),
                       ],
                     ),
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          user.balanceString(),
+                          style: TextStyle(fontSize: 30, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: _user.transactions.length,
-                      itemBuilder: (context, int i) {
-                        return displayTransaction(_user.transactions[i]);
-                      }),
-                ),
-              ],
-            )));
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: user.transactions.length,
+                  itemBuilder: (context, int i) {
+                    return displayTransaction(user.transactions[i]);
+                  }),
+            ),
+          ],
+        ));
   }
 }
