@@ -5,7 +5,7 @@ import 'package:gradhack/pages/search_store_page%20copy%203.dart';
 import 'package:gradhack/pages/search_store_page.dart';
 import 'package:gradhack/pages/transaction_detail_page.dart';
 import 'package:gradhack/pages/transaction_list_page.dart';
-
+import 'package:gradhack/pages/Merchant_Details.dart';
 void main() {
   runApp(MyApp());
 }
@@ -87,6 +87,16 @@ class _DummyMainPageState extends State<DummyMainPage> {
                 );
               },
               child: Text("Profile"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MerchantDetail(title: "Merchant Name")),
+                );
+              },
+              child: Text("Merchant Details"),
             ),
             RaisedButton(
               onPressed: () {
