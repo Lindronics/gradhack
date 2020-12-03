@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:gradhack/data/store.dart';
 import 'package:gradhack/data/transaction.dart';
 import 'package:gradhack/data/user.dart';
 import 'package:gradhack/pages/Merchant_Details.dart';
 
 class TransactionListPage extends StatelessWidget {
-  TransactionListPage({Key key, this.context, this.user}) : super(key: key);
+  TransactionListPage(
+      {Key key, this.context, this.user, this.store, List<Store> stores})
+      : super(key: key);
   final String title = "Transactions";
   static const String routeName = "/transaction_list";
   final BuildContext context;
   final User user;
+  final Store store;
 
   Widget displayTransaction(Transaction transaction,
           {Color oddColour = Colors.red}) =>

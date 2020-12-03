@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gradhack/components/map.dart';
@@ -75,16 +77,13 @@ class _DummyMainPageState extends State<DummyMainPage> {
   @override
   Widget build(BuildContext context) {
     List<Store> _stores = [
-      new Store(0, "Tesco Metro", 2, "Groceries",
-          location: LatLng(51.5143636, -0.0973289)),
+      new Store(0, "Tesco Metro", "Groceries", LatLng(51.5143636, -0.0973289),
+          organic: 2, energy: 3, recycle: 1),
+      new Store(1, "Amazon", "Shopping", null,
+          organic: 2, energy: 3, recycle: 1),
       new Store(
-        1,
-        "Amazon",
-        1,
-        "Shopping",
-      ),
-      new Store(2, "Sainsbury's Local", 3, "Groceries",
-          location: LatLng(51.5143768, -0.0973503)),
+          2, "Sainsbury's Local", "Groceries", LatLng(51.5143768, -0.0973503),
+          organic: 2, energy: 3, recycle: 1),
     ];
 
     User _user = User(
@@ -106,7 +105,7 @@ class _DummyMainPageState extends State<DummyMainPage> {
           children: <Widget>[],
         ),
       ),
-      TransactionListPage(context: context, user: _user),
+      TransactionListPage(context: context, user: _user, stores: _stores),
       SearchStorePage(stores: _stores, user: _user),
     ];
 
