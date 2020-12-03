@@ -11,6 +11,39 @@ class MerchantDetail extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<MerchantDetail> {
+  Widget _aboutDialog(BuildContext context, Transaction transaction) {
+    return new AlertDialog(
+      title: const Text("HSBC green certification"),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              transaction.store.getLeaves(),
+            ],
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Text(
+              "This is an informational text explaining what the HSBC green certification is and how it works. Lorem ipsum dolor sit amnet."),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text("Okay"),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Transaction _transaction = ModalRoute.of(context).settings.arguments;
@@ -97,7 +130,13 @@ class _ProfilePageState extends State<MerchantDetail> {
               height: 15.0,
             ),
             RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        _aboutDialog(context, _transaction),
+                  );
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 elevation: 0.0,
