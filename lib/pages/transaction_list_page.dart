@@ -51,9 +51,7 @@ class TransactionListPage extends StatelessWidget {
                       Padding(
                           padding: EdgeInsets.only(left: 15.0),
                           child: Column(
-                            children: [
-                              transaction.store.getTransactionLeaves()
-                            ],
+                            children: [transaction.store.getLeaves()],
                           ))
                     ],
                   )

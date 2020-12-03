@@ -96,8 +96,7 @@ class _ProfilePageState extends State<MerchantDetail> {
                                   bottom: 10.0),
                               child: Container(
                                   child: Row(children: <Widget>[
-                                // TODO alignment
-                                _transaction.store.getLargeLeaves(),
+                                _transaction.store.getLeaves(size: 35.0),
                               ])))),
                       Text(
                         "This merchant has been certified to be ",
@@ -170,7 +169,7 @@ class _ProfilePageState extends State<MerchantDetail> {
                   Text("Organic Products                   ",
                       textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 18.0, color: Colors.black)),
-                  _transaction.store.getIndividualScoreLeaf("Organic")
+                  _transaction.store.getLeaves(category: "Organic")
                 ]),
                 SizedBox(
                   height: 15.0,
@@ -182,7 +181,7 @@ class _ProfilePageState extends State<MerchantDetail> {
                   Text("Green Energy                          ",
                       textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 18.0, color: Colors.black)),
-                  _transaction.store.getIndividualScoreLeaf("Energy")
+                  _transaction.store.getLeaves(category: "Energy")
                 ]),
                 SizedBox(
                   height: 15.0,
@@ -191,7 +190,7 @@ class _ProfilePageState extends State<MerchantDetail> {
                   Text("Recycling                                 ",
                       textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 18.0, color: Colors.black)),
-                  _transaction.store.getIndividualScoreLeaf("Recycle")
+                  _transaction.store.getLeaves(category: "Recycle")
                 ])
               ])),
           SizedBox(
