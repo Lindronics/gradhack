@@ -11,14 +11,9 @@ class MerchantDetail extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<MerchantDetail> {
-
   @override
   Widget build(BuildContext context) {
-    
     Transaction _transaction = ModalRoute.of(context).settings.arguments;
-
-    _transaction.store.individualScore(_transaction.store.initialScore);
-    _transaction.store.calculateSustainabilityScore(_transaction.store.initialScore);
 
     return Scaffold(
       appBar: AppBar(
@@ -92,17 +87,18 @@ class _ProfilePageState extends State<MerchantDetail> {
                       SizedBox(
                         height: 10.0,
                       ),
-                      Center( child:
-                      Padding(padding: EdgeInsets.only(top:0.0,left: 152.0, right:150.0, bottom: 10.0),
-                      child:
-                        Container( 
-                          child: Row ( 
-                            children: <Widget>[
-                              
-                        // TODO alignment
-                        _transaction.store.getLargeLeaves(),
-
-                ])))),
+                      Center(
+                          child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: 0.0,
+                                  left: 152.0,
+                                  right: 150.0,
+                                  bottom: 10.0),
+                              child: Container(
+                                  child: Row(children: <Widget>[
+                                // TODO alignment
+                                _transaction.store.getLargeLeaves(),
+                              ])))),
                       Text(
                         "This merchant has been certified to be ",
                         style: TextStyle(
@@ -164,42 +160,43 @@ class _ProfilePageState extends State<MerchantDetail> {
                   color: Colors.black)),
           SizedBox(
             height: 20.0,
-          ),  
-          Padding( padding: EdgeInsets.only(top:0.0,left: 50.0, right:0, bottom: 10.0), child:
-          Column(mainAxisAlignment: MainAxisAlignment.start,children: [
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: [
-
-          Text("Organic Products                   ",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 18.0, color: Colors.black)),
-          _transaction.store.getIndividualScoreLeaf("Organic")
-          ]),
-          SizedBox(
-            height: 15.0,
           ),
-          //Padding( padding: EdgeInsets.only(top:0.0,left: 0.0, right:0, bottom: 10.0), 
-          //child:
-          //Column(mainAxisAlignment: MainAxisAlignment.center,children: [
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: [ 
-          Text("Green Energy                          ",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 18.0, color: Colors.black)),
-          _transaction.store.getIndividualScoreLeaf("Energy")
-          ]),
-          SizedBox(
-            height: 15.0,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.start,children: [ 
-          Text("Recycling                                 ",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 18.0, color: Colors.black)),
-          _transaction.store.getIndividualScoreLeaf("Recycle")
-          ])
-          ])),
+          Padding(
+              padding:
+                  EdgeInsets.only(top: 0.0, left: 50.0, right: 0, bottom: 10.0),
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Text("Organic Products                   ",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 18.0, color: Colors.black)),
+                  _transaction.store.getIndividualScoreLeaf("Organic")
+                ]),
+                SizedBox(
+                  height: 15.0,
+                ),
+                //Padding( padding: EdgeInsets.only(top:0.0,left: 0.0, right:0, bottom: 10.0),
+                //child:
+                //Column(mainAxisAlignment: MainAxisAlignment.center,children: [
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Text("Green Energy                          ",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 18.0, color: Colors.black)),
+                  _transaction.store.getIndividualScoreLeaf("Energy")
+                ]),
+                SizedBox(
+                  height: 15.0,
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Text("Recycling                                 ",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 18.0, color: Colors.black)),
+                  _transaction.store.getIndividualScoreLeaf("Recycle")
+                ])
+              ])),
           SizedBox(
             height: 10.0,
           ),
-          
         ],
       ),
     );

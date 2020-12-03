@@ -5,43 +5,41 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class Store {
   int id;
   String name;
-  int sustainabilityScore;
-  HashMap<String, int> individualScores;
   String category;
   String mapTitle;
   IconData logo;
   LatLng location;
-  List<int> initialScore;
+  HashMap<String, int> individualScores;
 
-  Store(this.id, this.name, this.sustainabilityScore, this.category,this.individualScores,
-      this.initialScore, this.location);
+  Store(
+    this.id,
+    this.name,
+    this.category,
+    this.location, {
+    organic = 0,
+    energy = 0,
+    recycle = 0,
+  }) {
+    this.individualScores = HashMap.from({
+      "Organic": organic,
+      "Energy": energy,
+      "Recycle": recycle,
+    });
+  }
 
-HashMap<String,int> individualScore(initialScore){
-    this.individualScores.putIfAbsent("Organic", () => initialScore[0]);
-    this.individualScores.putIfAbsent("Energy", () => initialScore[1]);
-    this.individualScores.putIfAbsent("Recycle", () => initialScore[2]);
-return this.individualScores;
-}
+  Row getTransactionLeaves() {
+    return Row(children: [
+      Icon(Icons.eco,
+          color: sustainabilityScore() >= 3 ? Colors.green : Colors.white),
+      Icon(Icons.eco,
+          color: sustainabilityScore() >= 6 ? Colors.green : Colors.white),
+      Icon(Icons.eco,
+          color: sustainabilityScore() >= 9 ? Colors.green : Colors.white)
+    ]);
+  }
 
-int calculateSustainabilityScore(list){
-  this.sustainabilityScore = list[0]+list[1]+list[2];
-  return this.sustainabilityScore;
-}
-
-  Row getTransactionLeaves(initialscore){
-    return Row(
-      children:[
-        Icon(Icons.eco, 
-          color: initialscore[0]+initialscore[1]+ initialscore[2]>= 3 ?
-          Colors.green : Colors.white),
-        Icon(Icons.eco, 
-          color: initialscore[0]+initialscore[1]+ initialscore[2]>= 6 ?        
-          Colors.green : Colors.white),
-        Icon(Icons.eco, 
-          color: initialscore[0]+initialscore[1]+ initialscore[2]>= 9 ?        
-          Colors.green : Colors.white)
-      ]
-    );
+  int sustainabilityScore() {
+    return this.individualScores.values.reduce((e, v) => e + v);
   }
 
   Row getLeaves() {
@@ -49,15 +47,15 @@ int calculateSustainabilityScore(list){
       children: [
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.sustainabilityScore >= 3 ? Colors.green : Colors.white,
+          color: this.sustainabilityScore() >= 3 ? Colors.green : Colors.white,
         ),
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.sustainabilityScore >= 6 ? Colors.green : Colors.white,
+          color: this.sustainabilityScore() >= 6 ? Colors.green : Colors.white,
         ),
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.sustainabilityScore >= 9 ? Colors.green : Colors.white,
+          color: this.sustainabilityScore() >= 9 ? Colors.green : Colors.white,
         ),
       ],
     );
@@ -68,17 +66,20 @@ int calculateSustainabilityScore(list){
       children: [
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.sustainabilityScore >= 3 ? Colors.green : Colors.grey[400],
+          color:
+              this.sustainabilityScore() >= 3 ? Colors.green : Colors.grey[400],
           size: 35,
         ),
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.sustainabilityScore >= 6 ? Colors.green : Colors.grey[400],
+          color:
+              this.sustainabilityScore() >= 6 ? Colors.green : Colors.grey[400],
           size: 35,
         ),
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.sustainabilityScore >= 9 ? Colors.green : Colors.grey[400],
+          color:
+              this.sustainabilityScore() >= 9 ? Colors.green : Colors.grey[400],
           size: 35,
         ),
       ],
@@ -90,15 +91,21 @@ int calculateSustainabilityScore(list){
       children: [
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.individualScores[category] >= 1 ? Colors.green : Colors.grey[400],
+          color: this.individualScores[category] >= 1
+              ? Colors.green
+              : Colors.grey[400],
         ),
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.individualScores[category] >= 2 ? Colors.green : Colors.grey[400],
+          color: this.individualScores[category] >= 2
+              ? Colors.green
+              : Colors.grey[400],
         ),
         Icon(
           IconData(59108, fontFamily: 'MaterialIcons'),
-          color: this.individualScores[category] >= 3 ? Colors.green : Colors.grey[400],
+          color: this.individualScores[category] >= 3
+              ? Colors.green
+              : Colors.grey[400],
         ),
       ],
     );

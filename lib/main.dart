@@ -77,19 +77,14 @@ class _DummyMainPageState extends State<DummyMainPage> {
   @override
   Widget build(BuildContext context) {
     List<Store> _stores = [
-      new Store(0, "Tesco Metro", 0, "Groceries", HashMap<String,int>(),
-          [3,2,1], LatLng(51.5143636, -0.0973289)),
+      new Store(0, "Tesco Metro", "Groceries", LatLng(51.5143636, -0.0973289),
+          organic: 2, energy: 3, recycle: 1),
+      new Store(1, "Amazon", "Shopping", null,
+          organic: 2, energy: 3, recycle: 1),
       new Store(
-        1,
-        "Amazon",
-        0,
-        "Shopping", HashMap<String,int>(),
-        [1,1,1], null),
-      new Store(2, "Sainsbury's Local", 0, "Groceries", HashMap<String,int>(), 
-      [3,3,3], LatLng(51.5143768, -0.0973503)),
+          2, "Sainsbury's Local", "Groceries", LatLng(51.5143768, -0.0973503),
+          organic: 2, energy: 3, recycle: 1),
     ];
-
-
 
     User _user = User(
       1,
