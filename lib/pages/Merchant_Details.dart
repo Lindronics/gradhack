@@ -161,38 +161,22 @@ class _ProfilePageState extends State<MerchantDetail> {
             height: 20.0,
           ),
           Padding(
-              padding:
-                  EdgeInsets.only(top: 0.0, left: 50.0, right: 0, bottom: 10.0),
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text("Organic Products                   ",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 18.0, color: Colors.black)),
-                  _transaction.store.getLeaves(category: "Organic")
-                ]),
-                SizedBox(
-                  height: 15.0,
-                ),
-                //Padding( padding: EdgeInsets.only(top:0.0,left: 0.0, right:0, bottom: 10.0),
-                //child:
-                //Column(mainAxisAlignment: MainAxisAlignment.center,children: [
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text("Green Energy                          ",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 18.0, color: Colors.black)),
-                  _transaction.store.getLeaves(category: "Energy")
-                ]),
-                SizedBox(
-                  height: 15.0,
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text("Recycling                                 ",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 18.0, color: Colors.black)),
-                  _transaction.store.getLeaves(category: "Recycle")
-                ])
-              ])),
+              padding: EdgeInsets.only(
+                  top: 0.0, left: 50.0, right: 50.0, bottom: 10.0),
+              child: Column(
+                children: _transaction.store.individualScores.entries.map((e) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(e.key, style: TextStyle(fontSize: 18.0)),
+                        _transaction.store.getLeaves(category: e.key),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              )),
           SizedBox(
             height: 10.0,
           ),
